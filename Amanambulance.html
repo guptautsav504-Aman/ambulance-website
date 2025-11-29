@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Ambulance Booking System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes pulse-red {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .pulse-red {
+            animation: pulse-red 1s ease-in-out infinite;
+        }
+        @keyframes slide-in {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .slide-in {
+            animation: slide-in 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-red-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-red-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="text-3xl">🚑</div>
+                    <div>
+                        <h1 class="text-2xl font-bold">Emergency Medical Services</h1>
+                        <p class="text-red-100 text-sm">24/7 Ambulance Booking System</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="text-lg font-semibold">Emergency Hotline</div>
+                    <div class="text-2xl font-bold pulse-red">911</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- Emergency Alert Banner -->
+        <div id="emergencyBanner" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-r-lg">
+            <div class="flex items-center">
+                <div class="text-2xl mr-3">⚠️</div>
+                <div>
+                    <p class="font-bold">Life-threatening emergency?</p>
+                    <p class="text-sm">Call 911 immediately or use the Emergency Request button below</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Main Booking Form -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Book Ambulance Service</h2>
+                        <button id="emergencyBtn" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold pulse-red transition-colors">
+                            🚨 EMERGENCY REQUEST
+                        </button>
+                    </div>
+
+                    <form id="bookingForm" class="space-y-6">
+                        <!-- Emergency Type -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Emergency Type</label>
+                            <select id="emergencyType" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                                <option value="">Select emergency type</option>
+                                <option value="cardiac">Cardiac Emergency</option>
+                                <option value="accident">Traffic Accident</option>
+                                <option value="stroke">Stroke</option>
+                                <option value="breathing">Breathing Difficulty</option>
+                                <option value="trauma">Trauma/Injury</option>
+                                <option value="other">Other Medical Emergency</option>
+                                <option value="transport">Non-Emergency Transport</option>
+                            </select>
+                        </div>
+
+                        <!-- Patient Information -->
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Patient Name</label>
+                                <input type="text" id="patientName" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" placeholder="Full name">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Patient Age</label>
+                                <input type="number" id="patientAge" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" placeholder="Age">
+                            </div>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Contact Phone</label>
+                                <input type="tel" id="contactPhone" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" placeholder="Phone number" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Caller Name</label>
+                                <input type="text" id="callerName" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" placeholder="Your name">
+                            </div>
+                        </div>
+
+                        <!-- Location -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Pickup Location</label>
+                            <textarea id="pickupLocation" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" placeholder="Complete address with landmarks" required></textarea>
+                        </div>
+
+                        <!-- Destination -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Destination Hospital</label>
+                            <select id="destinationHospital" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                                <option value="">Select preferred hospital</option>
+                                <option value="general">City General Hospital</option>
+                                <option value="mercy">Mercy Medical Center</option>
+                                <option value="regional">Regional Emergency Hospital</option>
+                                <option value="cardiac">Cardiac Specialty Center</option>
+                                <option value="nearest">Nearest Available Hospital</option>
+                            </select>
+                        </div>
+
+                        <!-- Medical Details -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Medical Condition Details</label>
+                            <textarea id="medicalDetails" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" placeholder="Describe symptoms, injuries, or medical condition"></textarea>
+                        </div>
+
+                        <!-- Special Requirements -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Special Requirements</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="oxygen" class="mr-2 text-red-600">
+                                    <span class="text-sm">Oxygen Support</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="wheelchair" class="mr-2 text-red-600">
+                                    <span class="text-sm">Wheelchair Access</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="stretcher" class="mr-2 text-red-600">
+                                    <span class="text-sm">Stretcher Required</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="cardiac" class="mr-2 text-red-600">
+                                    <span class="text-sm">Cardiac Equipment</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white py-4 px-6 rounded-lg font-bold text-lg transition-colors">
+                            📞 REQUEST AMBULANCE
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Status Panel -->
+                <div id="statusPanel" class="bg-white rounded-xl shadow-lg p-6 hidden">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Request Status</h3>
+                    <div id="statusContent" class="space-y-4">
+                        <!-- Status updates will appear here -->
+                    </div>
+                </div>
+
+                <!-- Emergency Tips -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">🩺 Emergency Tips</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="p-3 bg-red-50 rounded-lg">
+                            <p class="font-semibold text-red-800">Cardiac Emergency:</p>
+                            <p class="text-red-700">Keep patient calm, loosen tight clothing, give aspirin if not allergic</p>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-lg">
+                            <p class="font-semibold text-blue-800">Breathing Issues:</p>
+                            <p class="text-blue-700">Keep patient upright, ensure airway is clear, stay calm</p>
+                        </div>
+                        <div class="p-3 bg-yellow-50 rounded-lg">
+                            <p class="font-semibold text-yellow-800">Trauma/Injury:</p>
+                            <p class="text-yellow-700">Don't move patient unless necessary, control bleeding, keep warm</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Info -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">📋 Service Information</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Average Response Time:</span>
+                            <span class="font-semibold text-green-600">8-12 minutes</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Available Ambulances:</span>
+                            <span class="font-semibold text-green-600">15 units</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Service Coverage:</span>
+                            <span class="font-semibold">24/7</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Emergency Hotline:</span>
+                            <span class="font-semibold text-red-600">911</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Modal -->
+    <div id="emergencyModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-8 m-4 max-w-md w-full slide-in">
+            <div class="text-center">
+                <div class="text-6xl mb-4">🚨</div>
+                <h3 class="text-2xl font-bold text-red-600 mb-4">EMERGENCY REQUEST</h3>
+                <p class="text-gray-700 mb-6">This will immediately dispatch the nearest available ambulance to your location.</p>
+                <div class="space-y-4">
+                    <button id="confirmEmergency" class="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-lg font-bold">
+                        CONFIRM EMERGENCY DISPATCH
+                    </button>
+                    <button id="cancelEmergency" class="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 py-3 px-6 rounded-lg font-bold">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form elements
+        const bookingForm = document.getElementById('bookingForm');
+        const emergencyBtn = document.getElementById('emergencyBtn');
+        const emergencyModal = document.getElementById('emergencyModal');
+        const confirmEmergency = document.getElementById('confirmEmergency');
+        const cancelEmergency = document.getElementById('cancelEmergency');
+        const statusPanel = document.getElementById('statusPanel');
+        const statusContent = document.getElementById('statusContent');
+
+        // Emergency button handler
+        emergencyBtn.addEventListener('click', () => {
+            emergencyModal.classList.remove('hidden');
+            emergencyModal.classList.add('flex');
+        });
+
+        // Cancel emergency modal
+        cancelEmergency.addEventListener('click', () => {
+            emergencyModal.classList.add('hidden');
+            emergencyModal.classList.remove('flex');
+        });
+
+        // Confirm emergency dispatch
+        confirmEmergency.addEventListener('click', () => {
+            emergencyModal.classList.add('hidden');
+            emergencyModal.classList.remove('flex');
+            
+            showStatus('emergency');
+            simulateEmergencyDispatch();
+        });
+
+        // Form submission
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                emergencyType: document.getElementById('emergencyType').value,
+                patientName: document.getElementById('patientName').value,
+                patientAge: document.getElementById('patientAge').value,
+                contactPhone: document.getElementById('contactPhone').value,
+                callerName: document.getElementById('callerName').value,
+                pickupLocation: document.getElementById('pickupLocation').value,
+                destinationHospital: document.getElementById('destinationHospital').value,
+                medicalDetails: document.getElementById('medicalDetails').value
+            };
+
+            if (!formData.contactPhone || !formData.pickupLocation) {
+                alert('Please fill in required fields: Contact Phone and Pickup Location');
+                return;
+            }
+
+            showStatus('regular');
+            simulateRegularBooking(formData);
+        });
+
+        function showStatus(type) {
+            statusPanel.classList.remove('hidden');
+            statusContent.innerHTML = '';
+            
+            if (type === 'emergency') {
+                statusContent.innerHTML = `
+                    <div class="bg-red-100 border border-red-300 rounded-lg p-4">
+                        <div class="flex items-center">
+                            <div class="text-2xl mr-3 pulse-red">🚨</div>
+                            <div>
+                                <p class="font-bold text-red-800">EMERGENCY DISPATCH ACTIVATED</p>
+                                <p class="text-red-700 text-sm">Nearest ambulance dispatched immediately</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="emergencyUpdates" class="space-y-2"></div>
+                `;
+            } else {
+                statusContent.innerHTML = `
+                    <div class="bg-blue-100 border border-blue-300 rounded-lg p-4">
+                        <div class="flex items-center">
+                            <div class="text-2xl mr-3">📋</div>
+                            <div>
+                                <p class="font-bold text-blue-800">REQUEST SUBMITTED</p>
+                                <p class="text-blue-700 text-sm">Processing your ambulance request</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="regularUpdates" class="space-y-2"></div>
+                `;
+            }
+        }
+
+        function simulateEmergencyDispatch() {
+            const updates = [
+                { time: 1000, message: "🚑 Unit 7 dispatched - ETA 6 minutes", type: "success" },
+                { time: 3000, message: "📍 GPS tracking active - Unit en route", type: "info" },
+                { time: 5000, message: "📞 Paramedic will call you shortly", type: "info" },
+                { time: 8000, message: "🏥 Hospital notified and prepared", type: "success" }
+            ];
+
+            updates.forEach(update => {
+                setTimeout(() => {
+                    addStatusUpdate('emergencyUpdates', update.message, update.type);
+                }, update.time);
+            });
+        }
+
+        function simulateRegularBooking(formData) {
+            const updates = [
+                { time: 1000, message: `📋 Request ID: AMB-${Math.floor(Math.random() * 10000)}`, type: "info" },
+                { time: 2000, message: "🔍 Finding nearest available ambulance", type: "info" },
+                { time: 4000, message: "✅ Ambulance confirmed - Unit 12", type: "success" },
+                { time: 6000, message: "📞 Driver will contact you at " + formData.contactPhone, type: "info" },
+                { time: 8000, message: "⏱️ Estimated arrival: 15-20 minutes", type: "success" }
+            ];
+
+            updates.forEach(update => {
+                setTimeout(() => {
+                    addStatusUpdate('regularUpdates', update.message, update.type);
+                }, update.time);
+            });
+        }
+
+        function addStatusUpdate(containerId, message, type) {
+            const container = document.getElementById(containerId);
+            const colorClass = type === 'success' ? 'bg-green-50 text-green-800' : 
+                              type === 'info' ? 'bg-blue-50 text-blue-800' : 'bg-gray-50 text-gray-800';
+            
+            const updateDiv = document.createElement('div');
+            updateDiv.className = `p-3 rounded-lg ${colorClass} slide-in`;
+            updateDiv.innerHTML = `<p class="text-sm font-medium">${message}</p>`;
+            
+            container.appendChild(updateDiv);
+        }
+
+        // Auto-fill current location (demo)
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                // This is a demo - in real implementation, you'd reverse geocode the coordinates
+                document.getElementById('pickupLocation').placeholder = "Current location detected - Click to us
